@@ -28,17 +28,29 @@ variable "pipeline_repo" {
   description = "Codecommit repo for storing terraform code of THIS pipeline"
 }
 
-variable "db_name" {
+
+variable "tfplan_build_name" {
   type    = string
-  default = "tf-lock"
+  default = "terraform_plan"
 }
 
-variable "log_bucket_name" {
-  type    = string
-  default = "tf-log"
+
+variable "codebuild_cw_log" {
+  type = map(string)
+  default = {
+    group        = "terraform-pipeline"
+    plan_stream  = "tf-plan"
+    apply_stream = "tf-apply"
+  }
 }
 
-variable "bucket_name" {
-  type    = string
-  default = "tf-backend"
+variable "backend_config" {
+  type = map(string)
+  default = {
+    bucket_name         = "tf-backend"
+    log_bucket_name     = "tf-log"
+    db_name             = "tf-lock"
+    terraform_state_key = "terraform/terraform.tfstate"
+    pipeline_state_key  = "tf-backend/terraform.tfstate"
+  }
 }

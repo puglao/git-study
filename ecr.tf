@@ -12,10 +12,10 @@ resource "aws_ecr_repository" "buildimage_repo" {
     working_dir = "./buildimage"
     #interpreter = ["/bin/bash" ,"-c"]
     command = <<-EOT
-    aws ecr get-login-password --region ap-east-1 | docker login --username AWS --password-stdin ${replace("${self.repository_url}", "/amazonaws.com.*$/", "amazonaws.com")}
+    aws ecr get-login-password --region ap-east-1 | \
+    docker login --username AWS --password-stdin "${self.registry_id}.dkr.ecr.${data.aws_region.current.id}.amazonaws.com"
     docker build -t ${self.repository_url}:latest .
     docker push ${self.repository_url}:latest
   EOT
   }
 }
-

@@ -1,6 +1,6 @@
 # Configure S3 bucket
 resource "aws_s3_bucket" "tfstate_bucket" {
-  bucket = "${var.bucket_name}-${random_id.rid.hex}"
+  bucket = "${var.backend_config.bucket_name}-${random_id.rid.hex}"
   acl    = "private"
   versioning {
     enabled = true
@@ -19,7 +19,7 @@ resource "aws_s3_bucket" "tfstate_bucket" {
     target_prefix = "logs/tf-backend/"
   }
   tags = {
-    Name = var.bucket_name
+    Name = var.backend_config.bucket_name
   }
 }
 
@@ -36,7 +36,7 @@ resource "aws_s3_bucket_public_access_block" "tfstate_bucket_block_public" {
 
 # Create logging bucket
 resource "aws_s3_bucket" "tf_log_bucket" {
-  bucket = "${var.log_bucket_name}-${random_id.rid.hex}"
+  bucket = "${var.backend_config.log_bucket_name}-${random_id.rid.hex}"
   acl    = "log-delivery-write"
 
   lifecycle_rule {
