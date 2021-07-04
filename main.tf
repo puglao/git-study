@@ -5,10 +5,10 @@ terraform {
       version = "~> 3.0"
     }
   }
-  # backend "s3" {
-  #   # backend-config is stored in backend.hcl
-  #   # Use "terraform init -backend-config=backend.hcl" to setup backend
-  # }
+  backend "s3" {
+    # backend-config is stored in backend.hcl
+    # Use "terraform init -backend-config=backend.hcl" to setup backend
+  }
 
 }
 

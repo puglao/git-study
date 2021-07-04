@@ -145,7 +145,7 @@ resource "aws_codebuild_project" "terraform_plan" {
   source {
     type      = "CODECOMMIT"
     location  = aws_codecommit_repository.terraform_repo.clone_url_http
-    buildspec = file("buildspec/tf_plan.spec")
+    buildspec = file("buildspec/tf_plan_buiildspec.yml")
   }
 
   logs_config {
