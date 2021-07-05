@@ -93,12 +93,12 @@ resource "aws_iam_role" "tf_plan_role" {
         {
           "Effect" : "Allow",
           "Action" : "s3:ListBucket",
-          "Resource" : "${aws_s3_bucket.tfstate_bucket.arn}"
+          "Resource" : ["${aws_s3_bucket.tfstate_bucket.arn}", "*"]
         },
         {
           "Effect" : "Allow",
           "Action" : ["s3:GetObject", "s3:PutObject"],
-          "Resource" : "${aws_s3_bucket.tfstate_bucket.arn}/"
+          "Resource" : ["${aws_s3_bucket.tfstate_bucket.arn}/", "*"]
         }
       ]
     })
